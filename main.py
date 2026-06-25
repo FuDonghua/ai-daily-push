@@ -26,9 +26,9 @@ load_dotenv()
 
 # ============ 配置 ============
 
-QWEN_API_KEY = os.environ.get("QWEN_API_KEY", "")
-QWEN_API_BASE = os.environ.get("QWEN_API_BASE", "https://open.bigmodel.cn/api/paas/v4/")
-QWEN_MODEL = os.environ.get("QWEN_MODEL", "glm-4-flash")
+ZHIPU_API_KEY = os.environ.get("ZHIPU_API_KEY", "")
+ZHIPU_API_BASE = os.environ.get("ZHIPU_API_BASE", "https://open.bigmodel.cn/api/paas/v4/")
+ZHIPU_MODEL = os.environ.get("ZHIPU_MODEL", "glm-4-flash")
 
 FEISHU_WEBHOOK = os.environ.get("FEISHU_WEBHOOK", "")
 FEISHU_SECRET = os.environ.get("FEISHU_SECRET", "")
@@ -268,17 +268,17 @@ def main():
     print(f"AI Daily News Agent - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 50)
 
-    if not QWEN_API_KEY:
-        print("[ERROR] QWEN_API_KEY not set")
+    if not ZHIPU_API_KEY:
+        print("[ERROR] ZHIPU_API_KEY not set")
         return
     if not FEISHU_WEBHOOK or not FEISHU_SECRET:
         print("[ERROR] FEISHU_WEBHOOK or FEISHU_SECRET not set")
         return
 
     llm = ChatOpenAI(
-        model=QWEN_MODEL,
-        api_key=QWEN_API_KEY,
-        base_url=QWEN_API_BASE,
+        model=ZHIPU_MODEL,
+        api_key=ZHIPU_API_KEY,
+        base_url=ZHIPU_API_BASE,
         temperature=0,
     )
 

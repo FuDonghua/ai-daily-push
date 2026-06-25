@@ -30,7 +30,7 @@ jobs:
 
       - name: Run AI Agent
         env:
-          QWEN_API_KEY: ${{ secrets.QWEN_API_KEY }}
+          ZHIPU_API_KEY: ${{ secrets.QWEN_API_KEY }}
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
           FEISHU_SECRET: ${{ secrets.FEISHU_SECRET }}
         run: python main.py
