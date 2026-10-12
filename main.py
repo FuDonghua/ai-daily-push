@@ -56,7 +56,7 @@ def search_ai_news(query: str) -> str:
         JSON string with search results containing title, url, and snippet.
     """
     try:
-        from duckduckgo_search import DDGS
+        from ddgs import DDGS
         results = DDGS().text(query, max_results=8)
         items = []
         for r in results:
