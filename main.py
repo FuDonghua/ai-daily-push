@@ -25,7 +25,7 @@ load_dotenv()
 
 # ============ 配置 ============
 
-ZHIPU_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "") or os.environ.get("ZHIPU_API_KEY", "")
+ZHIPU_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "") or os.environ.get("QWEN_API_KEY", "")
 ZHIPU_API_BASE = os.environ.get("ZHIPU_API_BASE", "https://api.deepseek.com")
 ZHIPU_MODEL = os.environ.get("ZHIPU_MODEL", "deepseek-chat")
 
