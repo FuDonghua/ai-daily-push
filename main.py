@@ -25,9 +25,9 @@ load_dotenv()
 
 # ============ 配置 ============
 
-ZHIPU_API_KEY = os.environ.get("ZHIPU_API_KEY", "")
-ZHIPU_API_BASE = os.environ.get("ZHIPU_API_BASE", "https://open.bigmodel.cn/api/paas/v4/")
-ZHIPU_MODEL = os.environ.get("ZHIPU_MODEL", "glm-4-flash")
+ZHIPU_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "") or os.environ.get("ZHIPU_API_KEY", "")
+ZHIPU_API_BASE = os.environ.get("ZHIPU_API_BASE", "https://api.deepseek.com")
+ZHIPU_MODEL = os.environ.get("ZHIPU_MODEL", "deepseek-chat")
 
 FEISHU_WEBHOOK = os.environ.get("FEISHU_WEBHOOK", "")
 
