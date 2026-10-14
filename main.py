@@ -184,14 +184,19 @@ def push_to_feishu(card_json: str) -> str:
     elements.append({"tag": "hr"})
 
     for i, item in enumerate(news_items, 1):
-        link_md = f'[🔗]({item.get("link", "")})' if item.get("link") else ""
         source = item.get("source", "")
         source_md = f'  ·  _{source}_' if source else ""
-        content = f'**{i}. {item["title"]}** {link_md}\n{item.get("summary", "")}{source_md}'
+        link = item.get("link", "")
+        if link:
+            title_part = f'**{i}. [{item["title"]}]({link})**'
+        else:
+            title_part = f'**{i}. {item["title"]}**'
+        content = f'{title_part}\n{item.get("summary", "")}{source_md}'
         elements.append({
             "tag": "div",
             "text": {"tag": "lark_md", "content": content}
         })
+
 
     now_cn = datetime.now(timezone(timedelta(hours=8)))
     date_str = now_cn.strftime("%Y-%m-%d")
