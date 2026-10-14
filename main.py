@@ -5,7 +5,6 @@ AI 热点日报 - LangChain Agent 版
 
 import os
 import sys
-import hmac
 import hashlib
 import base64
 import time
@@ -31,7 +30,6 @@ ZHIPU_API_BASE = os.environ.get("ZHIPU_API_BASE", "https://open.bigmodel.cn/api/
 ZHIPU_MODEL = os.environ.get("ZHIPU_MODEL", "glm-4-flash")
 
 FEISHU_WEBHOOK = os.environ.get("FEISHU_WEBHOOK", "")
-FEISHU_SECRET = os.environ.get("FEISHU_SECRET", "")
 
 RSS_SOURCES = [
     {"name": "The Verge AI", "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"},
@@ -210,14 +208,10 @@ def push_to_feishu(card_json: str) -> str:
     })
 
     # Sign and push
-    if not FEISHU_WEBHOOK or not FEISHU_SECRET:
-        return "Error: FEISHU_WEBHOOK or FEISHU_SECRET not configured."
+    if not FEISHU_WEBHOOK:
+        return "Error: FEISHU_WEBHOOK not configured."
 
-    timestamp = str(int(time.time()))
-    string_to_sign = f"{timestamp}\n{FEISHU_SECRET}"
-    hmac_code = hmac.new(FEISHU_SECRET.encode("utf-8"), string_to_sign.encode("utf-8"), digestmod=hashlib.sha256).digest()
-    sign = base64.b64encode(hmac_code).decode("utf-8")
-    url = f"{FEISHU_WEBHOOK}?timestamp={timestamp}&sign={sign}"
+    url = FEISHU_WEBHOOK
 
     payload = {
         "msg_type": "interactive",
@@ -273,8 +267,8 @@ def main():
     if not ZHIPU_API_KEY:
         print("[ERROR] ZHIPU_API_KEY not set")
         return
-    if not FEISHU_WEBHOOK or not FEISHU_SECRET:
-        print("[ERROR] FEISHU_WEBHOOK or FEISHU_SECRET not set")
+    if not FEISHU_WEBHOOK:
+        print("[ERROR] FEISHU_WEBHOOK not set")
         return
 
     llm = ChatOpenAI(
