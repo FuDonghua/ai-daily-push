@@ -234,7 +234,7 @@ def push_to_feishu(card_json: str) -> str:
     result = resp.json()
     print(f"[Feishu] {result}")
 
-    if result.get("StatusCode") == 0:
+    if result.get("StatusCode") == 0 or result.get("code") == 0:
         return f"Successfully pushed {len(news_items)} news items to Feishu!"
     return f"Feishu push failed: {result}"
 
@@ -251,7 +251,7 @@ SYSTEM_PROMPT = """你是一个 AI 新闻助手，负责每日搜索全球 AI �
 4. 为每条新闻：
    - 标题翻译成中文（保留英文关键术语如 GPT、Claude、OpenAI 等）
    - 写一段 2-3 句话的中文摘要，突出关键信息
-5. 使用 push_to_feishu 推送，参数格式：
+5. 使用 push_to_feishu 工具推送（必须实际调用工具，不允许只在回复里写"已发送"），参数格式：
    {"title": "AI 热点日报 · 日期 星期", "news_items": [{"title": "中文标题", "summary": "中文摘要", "link": "url", "source": "来源"}]}
 
 要求：
@@ -260,6 +260,8 @@ SYSTEM_PROMPT = """你是一个 AI 新闻助手，负责每日搜索全球 AI �
 - 按重要性和热度排序
 - 摘要简洁明了，突出关键信息
 - 推送是最后一步，确保新闻整理好后再调用
+- 必须实际调用 push_to_feishu 工具推送，不允许只在文字里说"已通过飞书发送"
+- 如果没有调用 push_to_feishu 工具，任务视为失败
 """
 
 
