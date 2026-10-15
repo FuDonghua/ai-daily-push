@@ -2,7 +2,7 @@ name: AI Daily News Push
 
 on:
   schedule:
-    - cron: '17 12 * * *'
+    - cron: '43 22 * * *'   # UTC 22:43 = 北京时间 06:43（避开 GitHub 调度洪峰）
   workflow_dispatch:
 
 jobs:
